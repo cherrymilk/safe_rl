@@ -1,0 +1,31 @@
+
+# swb:导出conda的配置文件
+conda env export > environment.yaml
+
+# 安装conda导出的配置文件
+conda env create -f environment.yaml
+
+# 导出配置文件
+pip freeze > requirements.txt
+
+# 安装配置文件
+pip install -r requirements.txt
+
+# 保存用户名字和密码
+git config --global credential.helper store
+
+# jupyter 配置外网访问保存
+https://www.cnblogs.com/qq-757617012/p/14412569.html
+from notebook.auth import passwd
+passwd()
+
+# swb:配置以下文件
+nano ~/.jupyter/jupyter_lab_config.py
+
+c.ServerApp.allow_remote_access = True  #设置允许远程访问
+
+c.ServerApp.token = 'xxxxxxxxxxxxxxxxxxxx' # 设置token 方便vscode配置jupyter
+
+argon2:$argon2id$v=19$m=10240,t=10,p=8$9dDZrbDdZq0NXDa+9OiD6Q$Eqf3NijNNqW0daFkGYzjaG1MFK0QQPKSKrX+UvWPDH0
+
+
