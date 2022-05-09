@@ -1,0 +1,19 @@
+# 1 --> 下载safety-gym代码
+git clone https://github.com/openai/safety-gym.git
+
+# 2 --> 安装safety-gym代码
+cd safety-gym/
+nano setup.py
+'mujoco_py==2.0.2.7' -->  'mujoco_py==2.0.2.8'
+pip install -e .
+
+# 3 --> 安装tensorflow-torch-mpi4py
+pip install tensorflow==1.13.2
+pip install tensorboard==2.8.0
+pip install tensorboardX==2.5
+conda install mpi4py
+pip install pandas
+pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+
+
+
