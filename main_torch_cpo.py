@@ -188,6 +188,7 @@ class WorkerTrain(Process):
                 print(f"Process {self.process_id}, init finished!!")
                 continue
             elif status == "stop_train":
+                print(colorize(f"Process {self.process_id}, sampling finished!!", "yellow"))
                 self.child_pipe.send("finished!")
                 break  # swb:直接结束啊！！
             else:
@@ -319,6 +320,8 @@ def main(robot, task, seed, num_steps, steps_per_epoch,
         training_time = round(update_end - update_start, 3)
         print(f"Epoch:{epoch+1}, Sampling consumes {sampling_time} (s), "
               f"Updating consumes {training_time} (s).")
+    # swb:结束训练了啊！！
+    send_2_worker_and_recv(Data(status="stop_train"), parent_pipes)
 
 
 if __name__ == '__main__':
@@ -340,7 +343,7 @@ if __name__ == '__main__':
     parser.add_argument("--rescale", type=int, default=100)
     parser.add_argument("--num_workers", type=int, default=6)  # swb:[1,2,3,5,6,10,12,15,30]
     parser.add_argument("--steps_per_epoch", type=int, default=30000)
-    parser.add_argument("--total_steps", type=int, default=1e7)
+    parser.add_argument("--total_steps", type=int, default=1e5)
     args = parser.parse_args()
     device_sample = torch.device("cuda:0" if torch.cuda.is_available() and args.gpu_sample else "cpu")
     device_train = torch.device("cuda:0" if torch.cuda.is_available() and args.gpu_train else "cpu")
